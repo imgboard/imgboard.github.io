@@ -15,7 +15,7 @@
 						var posts = JSON.parse(result);
 						var newHTML = "";
 						for (var i = 0; i < posts.length; i++) {
-							newHTML += "<div><span><image src=\""+posts[i].img+"\" id=\"image"+i+"\" style=\"width:10em;height:10em;\" onclick=\"maximize("+i+");\"></image><p style=\"display:inline;\">At  "+posts[i].timestamp+" : "+posts[i].author+"<br>"+posts[i].txt+"</p></span></div><br><br>";
+							newHTML += "<div><span><image src=\""+posts[i].img+"\" id=\"image"+i+"\" style=\"max-width:10em;max-height:10em;\" onclick=\"maximize("+i+");\"></image><p style=\"display:inline;\">At  "+posts[i].timestamp+" : "+posts[i].author+"<br>"+posts[i].txt+"</p></span></div><br><br>";
 						}
 
 						$("#posts").html(newHTML);
@@ -24,14 +24,14 @@
 			}
 
 			var maximize = function(i) {
-				$("#image"+i).css("width","");
-				$("#image"+i).css("height","");
+				$("#image"+i).css("max-width","");
+				$("#image"+i).css("max-height","");
 				$("#image"+i).attr("onclick","minimize("+i+")");
 			}
 
 			var minimize = function(i) {
-				$("#image"+i).css("width","10em");
-				$("#image"+i).css("height","10em");
+				$("#image"+i).css("max-width","10em");
+				$("#image"+i).css("max-height","10em");
 				$("#image"+i).attr("onclick","maximize("+i+")");
 			}
 
