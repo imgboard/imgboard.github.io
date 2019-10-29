@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<title>ImgBoard</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<link href="https://fonts.googleapis.com/css?family=UnifrakturMaguntia&display=swap" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css?family=Vollkorn+SC&display=swap" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+		<script>
+			var resource_url = "https://script.google.com/macros/s/AKfycbwUth6lqxrlBmi1XHIPR7gWe10e5LSGSNicmjVOmQUJ8cDjxgaJ/exec";
+			var pull = function() {
+				$.ajax({url: resource_url, 
+					success: function(result) {
+						console.log("Response");
+						
+						console.log(result);
+
+						var posts = JSON.parse(result);
+						var newHTML = "";
+						for (var i = 0; i < posts.length; i++) {
+							newHTML += "<image src=\"" + posts[i].img + "\"></image><p>"+posts[i].txt+"</p><br>";
+						}
+
+						$("#posts").html(newHTML);
+					}
+				});
+			}
+
+			$(document).ready(function() {
+				console.log("Ready, loading initial posts!");
+				pull();
+			});
+		</script>
+		<style>
+			p {
+				font-family: 'Vollkorn SC', cursive;
+				font-size: 20px;
+			}
+			
+			h1 {
+				font-family: 'Vollkorn SC', cursive;
+				font-size: 50px;
+				margin: 10px 0px;
+			}
+
+			h2 {
+				font-family: 'Vollkorn SC', cursive;
+				font-size: 35px;			
+			}
+
+			button {
+				font-family: 'Vollkorn SC', cursive;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top-bar">
+			<h1>ImgBoard</h1>
+			<hr>
+		</div>
+		<div id="posts"></div>
+		<button onclick="pull()">Refresh</button>
+	</body>
+</html>
+
