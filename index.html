@@ -8,6 +8,24 @@
 				font-family: "Lucida Console", monospace;
 			}
 
+			button {
+				font-family: "Lucida Console", monospace;
+				border: none;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				padding: 1em;
+				margin-right: 2em;
+			}
+
+			textarea {
+				clear: left;
+			}
+
+			hr {
+				clear: left;
+			}
+
 			.box {
 				display: block;
 				float: none;
@@ -16,9 +34,9 @@
 
 			.image {
 				float:left;
-				padding-right: 1em;
-				padding-left: 1em;
-				padding-bottom: 3em;
+				margin-right: 1em;
+				margin-left: 1em;
+				margin-bottom: 3em;
 			}
 
 			.text {
@@ -27,12 +45,15 @@
 				display: inline-block;
 			}
 
-			button {
+			#top-button {
 				float:right;
-				border: none;
-				text-align: center;
-				text-decoration: none;
-				display: inline-block;
+			}
+
+			#top-bar {
+				width:100%;
+				background-color: white;
+				top: 0;
+				position: fixed;
 			}
 		</style>
 		<script>
@@ -69,6 +90,21 @@
 				$("#image"+i).attr("onclick","maximize("+i+")");
 			}
 
+			var post_url = " https://script.google.com/macros/s/AKfycby4pvGtRcn0tmaVgZDVp5JcJvhhkSzIw_3mYcXHTsFkEkmwj7aH/exec";
+
+			var post = function() {
+				console.log("Posting");
+				$.post(post_url,
+					{
+						image: "unknown",
+						txt: "example text"
+					}, 
+					function(data, status) {
+						alert("Data: " + data + "\nStatus: " + status);
+					}
+				);
+			}
+
 			$(document).ready(function() {
 				console.log("Ready, loading initial posts!");
 				pull();
@@ -76,11 +112,18 @@
 		</script>
 	</head>
 	<body>
+		<br><br><br><br><br><br>
+		<div id="posts"></div>
+		<hr>
+		<div id="post">
+			<button id="post-button" onclick="post()">Post</button>
+		</div>
 		<div id="top-bar">
-			<p><strong><span style="color:blue;font-size:3em;">IMG</span><span style="font-size:3em;">Board</span></strong><button onclick="pull()">Refresh</button>
+			<p>
+				<strong><span style="color:blue;font-size:3em;">IMG</span><span style="font-size:3em;">Board</span></strong><button id="top-button" onclick="pull()">Refresh Page</button>
+			</p>
 			<hr>
 		</div>
-		<div id="posts"><button onclick="pull()">Refresh</button></div>
 	</body>
 </html>
 
