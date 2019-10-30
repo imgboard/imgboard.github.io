@@ -4,8 +4,14 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 		<style>
+			a {
+				color: black;
+				text-decoration: none;
+			}
+
 			p {
 				font-family: "Lucida Console", monospace;
+				margin-right: 2em;
 			}
 
 			button {
@@ -33,27 +39,30 @@
 			}
 
 			.image {
-				float:left;
+				float: left;
 				margin-right: 1em;
 				margin-left: 1em;
 				margin-bottom: 3em;
 			}
 
 			.text {
-				position: relative;
-				top: -1em;
-				display: inline-block;
+				display: inline;
 			}
 
 			#top-button {
-				float:right;
+				float: right;
 			}
 
 			#top-bar {
-				width:100%;
+				width: 100%;
 				background-color: white;
 				top: 0;
 				position: fixed;
+			}
+
+			#top-bar-bar {
+				position: relative;
+				left: -0.5em;
 			}
 		</style>
 		<script>
@@ -70,11 +79,13 @@
 						for (var i = 0; i < posts.length; i++) {
 							var d = new Date(posts[i].timestamp).toUTCString();
 							var txt = posts[i].txt.replace("<","&lt;").replace(">","&gt;");
-							newHTML += "<div class=\"box\"><p class=\"text\"><strong>"+posts[i].author+" at "+d+":</strong><br><br>"+txt+"</p><image src=\""+posts[i].img+"\" id=\"image"+i+"\" class=\"image\" style=\"max-width:10em;max-height:10em;\" onclick=\"maximize("+i+");\"></image></div>";
+							newHTML += "<div class=\"box\"><p class=\"text\"><strong>"+posts[i].author+" at "+d+":</strong></p><br><br><image src=\""+posts[i].img+"\" id=\"image"+i+"\" class=\"image\" style=\"max-width:10em;max-height:10em;\" onclick=\"maximize("+i+");\"></image><p class=\"text\">"+txt+"</p></div>";
 						}
 
 						$("#posts").html(newHTML);
 					}
+				}).fail(function() {
+					alert("Failed to load posts!");
 				});
 			}
 
@@ -90,7 +101,7 @@
 				$("#image"+i).attr("onclick","maximize("+i+")");
 			}
 
-			var post_url = " https://script.google.com/macros/s/AKfycby4pvGtRcn0tmaVgZDVp5JcJvhhkSzIw_3mYcXHTsFkEkmwj7aH/exec";
+			var post_url = "https://script.google.com/macros/s/AKfycby4pvGtRcn0tmaVgZDVp5JcJvhhkSzIw_3mYcXHTsFkEkmwj7aH/exec";
 
 			var post = function() {
 				console.log("Posting");
@@ -116,13 +127,20 @@
 		<div id="posts"></div>
 		<hr>
 		<div id="post">
+ <form action="https://script.google.com/macros/s/AKfycby4pvGtRcn0tmaVgZDVp5JcJvhhkSzIw_3mYcXHTsFkEkmwj7aH/exec" method="post">
+  Some text<br>
+  <input type="text" name="txt" value="test"><br>
+  <input type="submit" value="Submit">
+</form> 
 			<button id="post-button" onclick="post()">Post</button>
 		</div>
 		<div id="top-bar">
 			<p>
-				<strong><span style="color:blue;font-size:3em;">IMG</span><span style="font-size:3em;">Board</span></strong><button id="top-button" onclick="pull()">Refresh Page</button>
+				<a href="https://github.com/imgboard/imgboard.github.io"><strong><span style="color:blue;font-size:3em;">IMG</span><span style="font-size:3em;">Board</span></strong></a>
+				<span style="padding:2em;position:relative;top:-1em;">hosted on github and google sheets</span>
+				<button id="top-button" onclick="pull()">Refresh Page</button>
 			</p>
-			<hr>
+			<hr id="top-bar-bar">
 		</div>
 	</body>
 </html>
