@@ -58,14 +58,14 @@
 			}
 
 			var maximize = function(i) {
-				$("#image"+i).css("width","");
-				$("#image"+i).css("height","");
+				$("#image"+i).css("max-width","");
+				$("#image"+i).css("max-height","");
 				$("#image"+i).attr("onclick","minimize("+i+")");
 			}
 
 			var minimize = function(i) {
-				$("#image"+i).css("width","10em");
-				$("#image"+i).css("height","10em");
+				$("#image"+i).css("max-width","10em");
+				$("#image"+i).css("max-height","10em");
 				$("#image"+i).attr("onclick","maximize("+i+")");
 			}
 
