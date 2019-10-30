@@ -3,6 +3,38 @@
 		<title>ImgBoard</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+		<style>
+			p {
+				font-family: "Lucida Console", monospace;
+			}
+
+			.box {
+				display: block;
+				float: none;
+				clear: left;
+			}
+
+			.image {
+				float:left;
+				padding-right: 1em;
+				padding-left: 1em;
+				padding-bottom: 3em;
+			}
+
+			.text {
+				position: relative;
+				top: -1em;
+				display: inline-block;
+			}
+
+			button {
+				float:right;
+				border: none;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+			}
+		</style>
 		<script>
 			var resource_url = "https://script.google.com/macros/s/AKfycbwUth6lqxrlBmi1XHIPR7gWe10e5LSGSNicmjVOmQUJ8cDjxgaJ/exec";
 			var pull = function() {
@@ -15,7 +47,9 @@
 						var posts = JSON.parse(result);
 						var newHTML = "";
 						for (var i = 0; i < posts.length; i++) {
-							newHTML += "<div><span><image src=\""+posts[i].img+"\" id=\"image"+i+"\" style=\"width:10em;height:10em;\" onclick=\"maximize("+i+");\"></image><p style=\"display:inline;\">At  "+posts[i].timestamp+" : "+posts[i].author+"<br>"+posts[i].txt+"</p></span></div><br><br>";
+							var d = new Date(posts[i].timestamp).toUTCString();
+							var txt = posts[i].txt.replace("<","&lt;").replace(">","&gt;");
+							newHTML += "<div class=\"box\"><p class=\"text\"><strong>"+posts[i].author+" at "+d+":</strong><br><br>"+txt+"</p><image src=\""+posts[i].img+"\" id=\"image"+i+"\" class=\"image\" style=\"width:10em;height:10em;\" onclick=\"maximize("+i+");\"></image></div>";
 						}
 
 						$("#posts").html(newHTML);
@@ -43,11 +77,10 @@
 	</head>
 	<body>
 		<div id="top-bar">
-			<p><strong><span style="color:blue;font-size:3em;">IMG</span><span style="font-size:3em;">Board</span></strong>
+			<p><strong><span style="color:blue;font-size:3em;">IMG</span><span style="font-size:3em;">Board</span></strong><button onclick="pull()">Refresh</button>
 			<hr>
 		</div>
-		<div id="posts"></div>
-		<button onclick="pull()">Refresh</button>
+		<div id="posts"><button onclick="pull()">Refresh</button></div>
 	</body>
 </html>
 
