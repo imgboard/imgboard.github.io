@@ -49,7 +49,7 @@
 						for (var i = 0; i < posts.length; i++) {
 							var d = new Date(posts[i].timestamp).toUTCString();
 							var txt = posts[i].txt.replace("<","&lt;").replace(">","&gt;");
-							newHTML += "<div class=\"box\"><p class=\"text\"><strong>"+posts[i].author+" at "+d+":</strong><br><br>"+txt+"</p><image src=\""+posts[i].img+"\" id=\"image"+i+"\" class=\"image\" style=\"width:10em;height:10em;\" onclick=\"maximize("+i+");\"></image></div>";
+							newHTML += "<div class=\"box\"><p class=\"text\"><strong>"+posts[i].author+" at "+d+":</strong><br><br>"+txt+"</p><image src=\""+posts[i].img+"\" id=\"image"+i+"\" class=\"image\" style=\"max-width:10em;max-height:10em;\" onclick=\"maximize("+i+");\"></image></div>";
 						}
 
 						$("#posts").html(newHTML);
